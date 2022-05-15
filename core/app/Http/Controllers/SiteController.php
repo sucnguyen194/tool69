@@ -45,6 +45,7 @@ class SiteController extends Controller
         $services = Service::where('status', 1)->where('featured', 1)->whereHas('category', function ($q) {
             $q->where('status', 1);
         })->limit(20)->inRandomOrder()->with('user', 'user.rank')->get();
+        
         return view($this->activeTemplate . 'home', compact('pageTitle', 'services', 'emptyMessage'));
     }
 

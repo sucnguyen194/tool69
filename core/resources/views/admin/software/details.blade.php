@@ -85,7 +85,7 @@
                                       <span>{{__($software->subCategory->name)}}</span>
                                     </li>
                                 @endif
-                              
+
                                 <li class="list-group-item d-flex justify-content-between align-items-center font-weight-bold">
                                   @lang('Service Price')
                                   <span>{{getAmount($software->amount)}} {{$general->cur_text}}</span>
@@ -115,8 +115,8 @@
                                         <span class="font-weight-normal badge--primary badge--sm">@lang('Pending')</span>
                                     @endif
                                 </li>
-                              
-                            
+
+
                                  <li class="list-group-item d-flex justify-content-between align-items-center font-weight-bold">
                                   @lang('Rating')
                                   <span>{{getAmount($software->rating)}}</span>
@@ -146,7 +146,7 @@
                             <ul>
                                 @foreach($software->featuresSoftware as $features)
                                     <li class="font-weight-bold">{{$loop->iteration}}. {{__($features->name)}}</li>
-                                @endforeach 
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -156,9 +156,11 @@
                         <h5 class="card-header bg--dark">@lang('Tag')</h5>
                         <div class="card-body">
                             <ul>
-                                @foreach($software->tag as $value)
-                                    <li class="font-weight-bold">{{$loop->iteration}}. {{__($value)}}</li>
-                                @endforeach 
+                                @if($software->tag)
+                                    @foreach($software->tag as $value)
+                                        <li class="font-weight-bold">{{$loop->iteration}}. {{__($value)}}</li>
+                                    @endforeach
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -169,9 +171,11 @@
                         <h5 class="card-header bg--dark">@lang('File Include')</h5>
                         <div class="card-body">
                             <ul>
-                                @foreach($software->file_include as $value)
-                                    <li class="font-weight-bold">{{$loop->iteration}}. {{__($value)}}</li>
-                                @endforeach 
+                                @if($software->file_include )
+                                    @foreach($software->file_include as $value)
+                                        <li class="font-weight-bold">{{$loop->iteration}}. {{__($value)}}</li>
+                                    @endforeach
+                                 @endif
                             </ul>
                         </div>
                     </div>

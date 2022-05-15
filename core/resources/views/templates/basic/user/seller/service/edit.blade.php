@@ -54,7 +54,7 @@
                                                                 </div>
                                                                 <a href="javascript:void(0)" class="btn btn-sm btn-danger deleteOptionalImage" data-bs-toggle="modal" data-id="{{encrypt($data->id)}}" data-bs-target="#approvedModal" data-id="{{$data->id}}">@lang('Remove')</a>
                                                             </div>
-                                                        @endforeach                        
+                                                        @endforeach
                                                     @endif
                                                 </div>
                                             </div>
@@ -70,10 +70,10 @@
                                             <select class="form-control bg--gray" name="category" id="category">
                                                     <option selected="" disabled="">@lang('Select Category')</option>
                                                 @foreach($categorys as $category)
-                                                    <option value="{{($category->id)}}"  
+                                                    <option value="{{($category->id)}}"
                                                         @if($category->id==$service->category_id)
-                                                            selected 
-                                                        @endif 
+                                                            selected
+                                                        @endif
                                                     >{{__($category->name)}}</option>
                                                 @endforeach
                                             </select>
@@ -83,9 +83,9 @@
                                             <label for="subCategorys">@lang('Sub Category')</label>
                                                 <select name="subcategory" class="form-control mySubCatgry" id="subCategorys">
                                                     @foreach($categorys->find($service->category_id)->subCategory as $sub)
-                                                        <option 
+                                                        <option
                                                             @if($sub->id==$service->sub_category_id)
-                                                                selected 
+                                                                selected
                                                             @endif
                                                         value="{{$sub->id}}">{{$sub->name}}</option>
                                                     @endforeach
@@ -98,8 +98,8 @@
                                                 <div class="form-group custom-check-group">
                                                     <input type="checkbox" name="features[]"
                                                     @foreach($service->featuresService as $value)
-                                                        {{$feature->id == $value->id ? 'checked' : '' }}  
-                                                    @endforeach  
+                                                        {{$feature->id == $value->id ? 'checked' : '' }}
+                                                    @endforeach
                                                      id="{{$feature->id}}" value="{{$feature->id}}">
                                                     <label for="{{$feature->id}}">{{__($feature->name)}}</label>
                                                 </div>
@@ -107,11 +107,13 @@
                                         </div>
 
                                         <div class="col-xl-6 col-lg-6 form-group select2Tag">
-                                            <label>@lang('Tag')*</label>
-                                            <select class="form-control select2" name="tag[]" multiple="multiple" required="">
+                                            <label>@lang('Tag')</label>
+                                            <select class="form-control select2" name="tag[]" multiple="multiple">
+                                                @if($service->tag)
                                                 @foreach($service->tag as $name)
                                                     <option value="{{$name}}" selected="true">{{__($name)}}</option>
                                                 @endforeach
+                                                @endif
                                             </select>
                                             <small>@lang('Tag and enter press')</small>
                                         </div>
@@ -127,7 +129,7 @@
                                         <div class="col-xl-6 col-lg-6 form-group">
                                             <label>@lang('Delivery Time')</label>
                                                 <div class="input-group mb-3">
-                                                  <input type="text" class="form-control" name="delivery" value="{{$service->delivery_time}}" placeholder="@lang('Delivery Time')" required="">
+                                                  <input type="text" class="form-control" name="delivery" value="{{$service->delivery_time}}" placeholder="@lang('Delivery Time')">
                                                   <span class="input-group-text" id="basic-addon2">@lang('Days')</span>
                                                 </div>
                                         </div>
@@ -344,12 +346,12 @@
                 success:function(data){
                     var html = '';
                     if(data.error){
-                        $("#subCategorys").empty(); 
+                        $("#subCategorys").empty();
                         html += `<option value="" selected disabled>${data.error}</option>`;
                         $(".mySubCatgry").html(html);
                     }
                     else{
-                        $("#subCategorys").empty(); 
+                        $("#subCategorys").empty();
                         html += `<option value="" selected disabled>@lang('Select Sub Category')</option>`;
                         $.each(data, function(index, item) {
                             html += `<option value="${item.id}">${item.name}</option>`;
@@ -357,7 +359,7 @@
                         });
                     }
                 }
-        });   
+        });
     });
 
 

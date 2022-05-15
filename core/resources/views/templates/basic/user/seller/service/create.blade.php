@@ -47,7 +47,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="card-body addImage">
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -82,8 +82,8 @@
                                         </div>
 
                                         <div class="col-xl-6 col-lg-6 form-group select2Tag">
-                                            <label>@lang('Tag')*</label>
-                                            <select class="form-control select2" name="tag[]" multiple="multiple" required="">
+                                            <label>@lang('Tag')</label>
+                                            <select class="form-control select2" name="tag[]" multiple="multiple">
                                             </select>
                                             <small>@lang('Tag and enter press')</small>
                                         </div>
@@ -99,7 +99,7 @@
                                         <div class="col-xl-6 col-lg-6 form-group">
                                             <label>@lang('Delivery Time')</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name="delivery" value="{{old('delivery')}}" placeholder="@lang('Delivery Time')" required="">
+                                                    <input type="text" class="form-control" name="delivery" value="{{old('delivery')}}" placeholder="@lang('Delivery Time')">
                                                     <span class="input-group-text" id="basic-addon2">@lang('Days')</span>
                                                 </div>
                                         </div>
@@ -115,7 +115,7 @@
                                             </div>
                                             <div class="card-body">
                                                 <div class="row justify-content-center addExtraService">
-                                       
+
                                                 </div>
                                             </div>
                                         </div>
@@ -262,12 +262,12 @@
                 success:function(data){
                     var html = '';
                     if(data.error){
-                        $("#subCategorys").empty(); 
+                        $("#subCategorys").empty();
                         html += `<option value="" selected disabled>${data.error}</option>`;
                         $(".mySubCatgry").html(html);
                     }
                     else{
-                        $("#subCategorys").empty(); 
+                        $("#subCategorys").empty();
                         html += `<option value="" selected disabled>@lang('Select Sub Category')</option>`;
                         $.each(data, function(index, item) {
                             html += `<option value="${item.id}">${item.name}</option>`;
@@ -275,7 +275,7 @@
                         });
                     }
                 }
-        });   
+        });
     });
 </script>
 @endpush

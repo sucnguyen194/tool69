@@ -2849,9 +2849,9 @@ option {
     height: auto;
   }
 }
-.item-card-wrapper.list-view .item-card-thumb img {
-  height: 100%;
-}
+/*.item-card-wrapper.list-view .item-card-thumb img {*/
+/*  height: 100%;*/
+/*}*/
 @media only screen and (max-width: 575px) {
   .item-card-wrapper.list-view .item-card-thumb img {
     height: auto;
@@ -5045,7 +5045,7 @@ option {
   border: 3px solid #f1f1f1;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  background-size: cover !important;
+  background-size: auto !important;
   background-position: top;
   background-repeat: no-repeat;
   position: relative;

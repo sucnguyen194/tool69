@@ -388,8 +388,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         });
 
 
-
-
         Route::middleware('staffaccess:19')->group(function () {
 
             // General Setting

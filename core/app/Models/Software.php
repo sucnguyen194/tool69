@@ -13,7 +13,8 @@ class Software extends Model
 
     protected $casts = [
         'tag' => 'object',
-        'file_include' => 'object'
+        'file_include' => 'object',
+        'amount' => 'array',
     ];
 
     public function featuresSoftware()

@@ -15,7 +15,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 class ServiceController extends Controller
 {
-    
+
     public function __construct()
     {
         $this->activeTemplate = activeTemplate();
@@ -29,7 +29,7 @@ class ServiceController extends Controller
         $services = Service::where('user_id',$user->id)->with('category')->latest()->paginate(getPaginate());
         return view($this->activeTemplate . 'user.seller.service.index', compact('pageTitle', 'services', 'emptyMessage'));
     }
-    
+
     public function create()
     {
     	$pageTitle = "Create service";
@@ -42,15 +42,15 @@ class ServiceController extends Controller
     	$user = Auth::user();
     	$general = GeneralSetting::first();
         $request->validate([
-            'image' => ['required', 'image', new FileTypeValidate(['jpg', 'jpeg', 'png'])],
+            'image' => ['nullable', 'image', new FileTypeValidate(['jpg', 'jpeg', 'png'])],
             'optional_image.*' => ['nullable', 'image', new FileTypeValidate(['jpg', 'jpeg', 'png'])],
             'title' => 'required|string|max:255',
             'category' => 'required|exists:categories,id',
             'subcategory' => 'nullable|exists:sub_categories,id',
             'features' => 'required|array|exists:features,id',
             'price' => 'required|numeric|gt:0',
-            'delivery' => 'required|integer|min:1',
-            'tag' => 'required|array|min:3|max:15',
+//            'delivery' => 'integer|min:1',
+//            'tag' => 'required|array|min:3|max:15',
             'description' => 'required',
             'extra_title.*' => 'required_with:extra_price|string|max:255',
             'extra_price.*' => 'required_with:extra_title|numeric|gt:0',
@@ -69,7 +69,7 @@ class ServiceController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->image;
             try {
-                $filename = uploadImage($file, $path, $size);
+                $filename = uploadImage($file, $path);
             } catch (\Exception $exp) {
                 $notify[] = ['error', 'Image could not be uploaded.'];
                 return back()->withNotify($notify);
@@ -128,8 +128,8 @@ class ServiceController extends Controller
             'subcategory' => 'nullable|exists:sub_categories,id',
             'features' => 'required|array|exists:features,id',
             'price' => 'required|numeric|gt:0',
-            'delivery' => 'required|integer|min:1',
-            'tag' => 'required|array|min:3|max:15',
+//            'delivery' => 'integer|min:1',
+//            'tag' => 'required|array|min:3|max:15',
             'description' => 'required',
             'extra_title.*' => 'required_with:extra_price|string|max:255',
             'extra_price.*' => 'required_with:extra_title|numeric|gt:0',
@@ -148,7 +148,7 @@ class ServiceController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->image;
             try {
-                $filename = uploadImage($file, $path, $size, $service->image);
+                $filename = uploadImage($file, $path, null, $service->image);
             } catch (\Exception $exp) {
                 $notify[] = ['error', 'Image could not be uploaded.'];
                 return back()->withNotify($notify);

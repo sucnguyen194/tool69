@@ -47,7 +47,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="card-body addImage">
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -82,38 +82,50 @@
                                         </div>
 
                                         <div class="col-xl-6 col-lg-6 form-group">
-                                            <label>@lang('Price')*</label>
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control" name="amount" value="{{old('amount')}}" placeholder="@lang('Enter Price')" required="">
-                                              <span class="input-group-text" id="basic-addon2">{{__($general->cur_text)}}</span>
+                                            <div class="card custom--card p-0 mb-3">
+                                                <div class="card-header d-flex flex-wrap align-items-center justify-content-between">
+                                                    <h4 class="card-title mb-0">
+                                                        @lang('Price')
+                                                    </h4>
+                                                    <div class="card-btn">
+                                                        <button type="button" class="btn--base addExtraAmount"><i class="las la-plus"></i> @lang('Add New')</button>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body addAmount">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" name="amount[]" value="{{old('amount')}}" placeholder="@lang('Enter Price')" required="">
+                                                        <span class="input-group-text" id="basic-addon2">{{__($general->cur_text)}}</span>
+                                                    </div>
+
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div class="col-xl-6 col-lg-6 form-group select2Tag">
-                                            <label>@lang('Tag')*</label>
-                                            <select class="form-control select2" name="tag[]" multiple="multiple" required="">
+                                            <label>@lang('Tag')</label>
+                                            <select class="form-control select2" name="tag[]" multiple="multiple">
                                             </select>
                                             <small>@lang('Tag and enter press')</small>
                                         </div>
 
                                         <div class="col-xl-6 col-lg-6 form-group select2Tag">
-                                            <label>@lang('File Include')*</label>
-                                            <select class="form-control select2" name="file_include[]" multiple="multiple" required="">
+                                            <label>@lang('File Include')</label>
+                                            <select class="form-control select2" name="file_include[]" multiple="multiple">
                                             </select>
                                             <small>@lang('File and enter press')</small>
                                         </div>
 
                                         <div class="col-xl-6 col-lg-6 form-group">
-                                            <label>@lang('Demo Url')*</label>
-                                            <input type="text" name="url" maxlength="255" value="{{old('url')}}" class="form-control" placeholder="@lang("Enter url")" required="">
+                                            <label>@lang('Demo Url')</label>
+                                            <input type="text" name="url" maxlength="255" value="{{old('url')}}" class="form-control" placeholder="@lang("Enter url")">
                                             <small>@lang('https://example.com/')</small>
                                         </div>
 
                                         <div class="col-xl-6 col-lg-6 form-group">
-                                            <label>@lang('Documentation File')*</label>
+                                            <label>@lang('Documentation File')</label>
                                             <div class="custom-file-wrapper">
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" name="document" id="customFile" required>
+                                                    <input type="file" class="custom-file-input" name="document" id="customFile">
                                                     <label class="custom-file-label" for="customFile">@lang('Choose file')</label>
                                                 </div>
                                                 <small>@lang('Supported file: only pdf file')</small>
@@ -121,10 +133,10 @@
                                         </div>
 
                                         <div class="col-xl-12 col-lg-12 form-group">
-                                            <label>@lang('Upload Software')*</label>
+                                            <label>@lang('Upload Software')</label>
                                             <div class="custom-file-wrapper">
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" name="uploadSoftware" id="customFile" required>
+                                                    <input type="file" class="custom-file-input" name="uploadSoftware" id="customFile">
                                                     <label class="custom-file-label" for="customFile">@lang('Choose file')</label>
                                                 </div>
                                                 <small>@lang('Supported file: only zip file')</small>
@@ -132,8 +144,13 @@
                                         </div>
 
                                         <div class="col-xl-12 col-lg-12 form-group">
-                                            <label>@lang('Description')*</label>
+                                            <label>@lang('Description')</label>
                                             <textarea class="form-control bg--gray nicEdit" name="description">{{old('description')}}</textarea>
+                                        </div>
+
+                                        <div class="col-xl-12 col-lg-12 form-group">
+                                            <label>@lang('Description Hide')</label>
+                                            <textarea class="form-control bg--gray nicEdit" name="description_hide">{{old('description_hide')}}</textarea>
                                         </div>
 
                                         <div class="col-xl-12 form-group">
@@ -189,7 +206,7 @@
         proPicURL(this);
     });
 
-    
+
     $(document).ready(function() {
         $('.select2').select2({
             tags: true
@@ -217,8 +234,25 @@
         $('.addImage').append(html);
     });
 
+    $('.addExtraAmount').on('click',function(){
+        var html = `
+                <div class="custom-file-wrapper removeAmount">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="amount[]" placeholder="@lang('Enter Price')">
+                        {{--<span class="input-group-text" id="basic-addon2">{{__($general->cur_text)}}</span>--}}
+                        <button class="btn btn--danger text-white border--rounded removeExtraAmount offset-1"><i class="fa fa-times"></i></button>
+                    </div>
+
+                </div>`;
+        $('.addAmount').append(html);
+    });
+
     $(document).on('click', '.removeExtraImage', function (){
         $(this).closest('.removeImage').remove();
+    });
+
+    $(document).on('click', '.removeExtraAmount', function (){
+        $(this).closest('.removeAmount').remove();
     });
 
     bkLib.onDomLoaded(function() {
@@ -251,12 +285,12 @@
                 success:function(data){
                     var html = '';
                     if(data.error){
-                        $("#subCategorys").empty(); 
+                        $("#subCategorys").empty();
                         html += `<option value="" selected disabled>${data.error}</option>`;
                         $(".mySubCatgry").html(html);
                     }
                     else{
-                        $("#subCategorys").empty(); 
+                        $("#subCategorys").empty();
                         html += `<option value="" selected disabled>@lang('Select Sub Category')</option>`;
                         $.each(data, function(index, item) {
                             html += `<option value="${item.id}">${item.name}</option>`;
@@ -264,7 +298,7 @@
                         });
                     }
                 }
-        });   
+        });
     });
 </script>
 @endpush

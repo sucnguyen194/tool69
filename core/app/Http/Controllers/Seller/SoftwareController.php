@@ -39,20 +39,24 @@ class SoftwareController extends Controller
 
 	public function store(Request $request)
 	{
+
+	 //   dd($request->amount);
+
 		$request->validate([
-            'image' => ['required', 'image', new FileTypeValidate(['jpg', 'jpeg', 'png'])],
+            'image' => ['image', new FileTypeValidate(['jpg', 'jpeg', 'png'])],
             'screenshot.*' => ['nullable', 'image', new FileTypeValidate(['jpg', 'jpeg', 'png'])],
             'title' => 'required|string|max:255',
             'category' => 'required|exists:categories,id',
             'subcategory' => 'nullable|exists:sub_categories,id',
             'features' => 'required|array|exists:features,id',
-            'tag' => 'required|array|min:3|max:15',
-            'file_include' => 'required|array|min:3|max:15',
-            'amount' => 'required|numeric|gt:0',
-            'url' => 'required|url',
-            'description' => 'required',
-            'document' => ['required', new FileTypeValidate(['pdf'])],
-            'uploadSoftware' => ['required', new FileTypeValidate(['zip'])],
+            'demo_url' => 'nullable',
+//            'tag' => 'required|array|min:3|max:15',
+//            'file_include' => 'required|array|min:3|max:15',
+            'amount' => 'required',
+//            'url' => 'required|url',
+//            'description' => 'required',
+//            'document' => ['required', new FileTypeValidate(['pdf'])],
+//            'uploadSoftware' => ['required', new FileTypeValidate(['zip'])],
         ]);
         $user = Auth::user();
     	$general = GeneralSetting::first();
@@ -61,18 +65,17 @@ class SoftwareController extends Controller
         $software->category_id = $request->category;
         $software->sub_category_id = $request->subcategory ? $request->subcategory : null;
         $software->title = $request->title;
-        $software->amount = $request->amount;
         $software->demo_url = $request->url;
         $software->tag = $request->tag;
         $software->file_include = $request->file_include;
         $software->description = $request->description;
-
+        $software->description_hide = $request->description_hide;
         $path = imagePath()['software']['path'];
         $size = imagePath()['software']['size'];
         if ($request->hasFile('image')) {
             $file = $request->image;
             try {
-                $filename = uploadImage($file, $path, $size);
+                $filename = uploadImage($file, $path);
             } catch (\Exception $exp) {
                 $notify[] = ['error', 'Image could not be uploaded.'];
                 return back()->withNotify($notify);
@@ -82,7 +85,7 @@ class SoftwareController extends Controller
 
         $documentPath = imagePath()['document']['path'];
         if($request->hasFile('document')) {
-           	$file = $request->document; 
+           	$file = $request->document;
            	try {
            		$filename = uploadFile($file, $documentPath);
            	}catch (\Exception $exp) {
@@ -93,7 +96,7 @@ class SoftwareController extends Controller
         }
         $softwarePath = imagePath()['uploadSoftware']['path'];
         if($request->hasFile('uploadSoftware')) {
-           	$file = $request->uploadSoftware; 
+           	$file = $request->uploadSoftware;
            	try {
            		$filename = uploadFile($file, $softwarePath);
            	}catch (\Exception $exp) {
@@ -106,6 +109,16 @@ class SoftwareController extends Controller
         if($general->approval_post == 1){
         	$software->status = 1;
         }
+
+        if($request->amount){
+            $amounts = [];
+            foreach ($request->amount as $amount):
+                $amounts[] = $amount;
+            endforeach;
+
+            $software->amount = $amounts;
+        }
+
         $software->updated_at = Carbon::now();
         $software->save();
         $software->featuresSoftware()->attach($request->features);
@@ -136,19 +149,21 @@ class SoftwareController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'image' => ['required', 'image', new FileTypeValidate(['jpg', 'jpeg', 'png'])],
+            'image' => ['image', new FileTypeValidate(['jpg', 'jpeg', 'png'])],
             'screenshot.*' => ['nullable', 'image', new FileTypeValidate(['jpg', 'jpeg', 'png'])],
             'title' => 'required|string|max:255',
             'category' => 'required|exists:categories,id',
             'subcategory' => 'nullable|exists:sub_categories,id',
             'features' => 'required|array|exists:features,id',
-            'tag' => 'required|array|min:3|max:15',
-            'file_include' => 'required|array|min:3|max:15',
-            'amount' => 'required|numeric|gt:0',
-            'url' => 'required|url',
-            'description' => 'required',
-            'document' => ['nullable', new FileTypeValidate(['pdf'])],
-            'uploadSoftware' => ['nullable', new FileTypeValidate(['zip'])],
+//            'tag' => 'required|array|min:3|max:15',
+//            'file_include' => 'required|array|min:3|max:15',
+//            'amount' => 'required|numeric|gt:0',
+            'amount' => 'required',
+            'demo_url' => 'nullable',
+//            'url' => 'required|url',
+//            'description' => 'required',
+//            'document' => ['nullable', new FileTypeValidate(['pdf'])],
+//            'uploadSoftware' => ['nullable', new FileTypeValidate(['zip'])],
         ]);
         $user = Auth::user();
         $general = GeneralSetting::first();
@@ -160,6 +175,7 @@ class SoftwareController extends Controller
         $software->amount = $request->amount;
         $software->demo_url = $request->url;
         $software->description = $request->description;
+        $software->description_hide = $request->description_hide;
         $software->tag = $request->tag;
         $software->file_include = $request->file_include;
         $path = imagePath()['software']['path'];
@@ -167,7 +183,7 @@ class SoftwareController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->image;
             try {
-                $filename = uploadImage($file, $path, $size, $software->image);
+                $filename = uploadImage($file, $path, null, $software->image);
             } catch (\Exception $exp) {
                 $notify[] = ['error', 'Image could not be uploaded.'];
                 return back()->withNotify($notify);
@@ -176,7 +192,7 @@ class SoftwareController extends Controller
         }
         $documentPath = imagePath()['document']['path'];
         if($request->hasFile('document')) {
-            $file = $request->document; 
+            $file = $request->document;
             try {
                 $filename = uploadFile($file, $documentPath, $size=null, $software->document_file);
             }catch (\Exception $exp) {
@@ -187,7 +203,7 @@ class SoftwareController extends Controller
         }
         $softwarePath = imagePath()['uploadSoftware']['path'];
         if($request->hasFile('uploadSoftware')) {
-            $file = $request->uploadSoftware; 
+            $file = $request->uploadSoftware;
             try {
                 $filename = uploadFile($file, $softwarePath, $size=null, $software->upload_software);
             }catch (\Exception $exp) {
@@ -203,6 +219,16 @@ class SoftwareController extends Controller
             $software->created_at = Carbon::now();
         }
         $software->updated_at = Carbon::now();
+
+        if($request->amount){
+            $amounts = [];
+            foreach ($request->amount as $amount):
+                $amounts[] = $amount;
+            endforeach;
+
+            $software->amount = $amounts;
+        }
+
         $software->save();
         $software->featuresSoftware()->sync($request->features);
         if($request->screenshot){
@@ -271,5 +297,5 @@ class SoftwareController extends Controller
 	        $optionals->save();
     	}
     }
-    
+
 }

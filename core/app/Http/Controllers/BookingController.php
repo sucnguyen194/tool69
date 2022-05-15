@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gateway;
 use Illuminate\Http\Request;
 use App\Models\Service;
 use App\Models\Coupon;
@@ -21,7 +22,7 @@ class BookingController extends Controller
 	public function __construct(){
         $this->activeTemplate = activeTemplate();
     }
-    
+
     public function serviceBooking($slug, $id)
     {
         if(session()->has('coupon')){
@@ -152,7 +153,7 @@ class BookingController extends Controller
 
         $serviceUser = User::where('id', $service->user_id)->first();
         notify($serviceUser, 'SERVICE_BOOKING', [
-            'order_number' => $booking->order_number, 
+            'order_number' => $booking->order_number,
             'amount' => getAmount($booking->amount),
             'currency' => $general->cur_text,
         ]);
@@ -200,9 +201,9 @@ class BookingController extends Controller
         $booking->discount = $discount;
         $booking->order_number = getTrx();
         $booking->extra_service = $extraService;
-        $booking->status = 0; 
+        $booking->status = 0;
         $booking->updated_at = Carbon::now();
-        $booking->status_updated_at = Carbon::now(); 
+        $booking->status_updated_at = Carbon::now();
         $booking->save();
         session()->put('booking',$booking->order_number);
         return back();
@@ -215,10 +216,10 @@ class BookingController extends Controller
         $gatewayCurrency = GatewayCurrency::whereHas('method', function ($gate) {
             $gate->where('status', 1);
         })->with('method')->orderby('method_code')->get();
+
         $pageTitle = 'Payment Methods';
         return view($this->activeTemplate . 'user.payment', compact('gatewayCurrency', 'pageTitle'));
     }
-
 
 
     public function paymentInsert(Request $request)

@@ -124,7 +124,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
             </div>
-            
+
             <form action="{{route('admin.software.approvedBy')}}" method="POST">
                 @csrf
                 @method('POST')
@@ -151,7 +151,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
             </div>
-            
+
             <form action="{{ route('admin.software.cancelBy') }}" method="POST">
                 @csrf
                 @method('POST')
@@ -184,12 +184,12 @@
 <form action="{{route('admin.software.category')}}" method="GET" class="form-inline float-sm-right bg--white">
     <div class="input-group has_append">
         <select class="form-control" name="category">
-            <option>----@lang('Select Category')----</option> 
+            <option>----@lang('Select Category')----</option>
             @foreach($categorys as $category)
                 @if(@$categoryId == $category->id)
-                    <option value="{{$category->id}}" selected="">{{__($category->name)}}</option> 
+                    <option value="{{$category->id}}" selected="">{{__($category->name)}}</option>
                 @else
-                    <option value="{{$category->id}}">{{__($category->name)}}</option> 
+                    <option value="{{$category->id}}">{{__($category->name)}}</option>
                 @endif
             @endforeach
        </select>
