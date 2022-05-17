@@ -26,7 +26,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                          
+
                             <div class="header-action">
                                 @guest
                                     <a href="{{route('user.login')}}" class="btn--base active">@lang('Sign In')</a>

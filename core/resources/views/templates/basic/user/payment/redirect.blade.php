@@ -11,9 +11,10 @@
         <input type="hidden" name="{{$k}}" value="{{$v}}"/>
     @endforeach
 </form>
+
 <script>
 	"use strict";
-    document.getElementById("auto_submit").submit();
+   document.getElementById("auto_submit").submit();
 </script>
 </body>
 

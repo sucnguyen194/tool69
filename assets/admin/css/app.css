@@ -7180,6 +7180,9 @@ a.icon-btn {
 .width-375{
     max-width: 375px;
 }
+.width-500{
+    max-width: 500px;
+}
 .admin-bg-reply{
     background-color: #faf8f1;
 }

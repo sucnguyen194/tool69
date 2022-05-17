@@ -32,6 +32,11 @@ class ServiceController extends Controller
 
     public function create()
     {
+        if(\auth()->user()->pe == 0){
+            $notify[] = ['error', 'Activity denied'];
+            return back()->withNotify($notify);
+        }
+
     	$pageTitle = "Create service";
     	$features = Features::latest()->get();
     	return view($this->activeTemplate . 'user.seller.service.create', compact('pageTitle', 'features'));
@@ -39,6 +44,11 @@ class ServiceController extends Controller
 
     public function store(Request $request)
     {
+        if(\auth()->user()->pe == 0){
+            $notify[] = ['error', 'Activity denied'];
+            return back()->withNotify($notify);
+        }
+
     	$user = Auth::user();
     	$general = GeneralSetting::first();
         $request->validate([

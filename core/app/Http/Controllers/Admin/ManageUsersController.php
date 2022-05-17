@@ -207,6 +207,7 @@ class ManageUsersController extends Controller
         $user->firstname = $request->firstname;
         $user->lastname = $request->lastname;
         $user->email = $request->email;
+        $user->insurance_money = $request->insurance_money;
         $user->address = [
                             'address' => $request->address,
                             'city' => $request->city,
@@ -219,6 +220,7 @@ class ManageUsersController extends Controller
         $user->sv = $request->sv ? 1 : 0;
         $user->ts = $request->ts ? 1 : 0;
         $user->tv = $request->tv ? 1 : 0;
+        $user->pe = $request->pe ? 1 : 0;
         $user->save();
 
         $notify[] = ['success', 'User detail has been updated'];

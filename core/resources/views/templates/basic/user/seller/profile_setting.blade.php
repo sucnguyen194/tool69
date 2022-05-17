@@ -38,6 +38,7 @@
                                             <li><i class="las la-envelope"></i>{{__($user->email)}}</li>
                                             <li><i class="las la-phone"></i> {{__($user->mobile)}}</li>
                                             <li><i class="las la-map-marked-alt"></i> {{__(@$user->address->country)}}</li>
+                                            <li><i class="las la-dollar-sign"></i>Insurance money: {{__(@$user->insurance_money)}}</li>
                                         </ul>
                                     </div>
                                 </div>

@@ -17,6 +17,11 @@ class JobController extends Controller
     }
     public function create()
     {
+        if(\auth()->user()->pe == 0){
+            $notify[] = ['error', 'Activity denied'];
+            return back()->withNotify($notify);
+        }
+
     	$pageTitle = "Job Create";
     	return view($this->activeTemplate . 'user.buyer.job.create', compact('pageTitle'));
     }
@@ -31,6 +36,11 @@ class JobController extends Controller
 
     public function store(Request $request)
     {
+        if(\auth()->user()->pe == 0){
+            $notify[] = ['error', 'Activity denied'];
+            return back()->withNotify($notify);
+        }
+        
         $general = GeneralSetting::first();
         $user = Auth::user();
     	$request->validate([
@@ -81,7 +91,7 @@ class JobController extends Controller
     	$user = Auth::user();
     	$pageTitle = "Job Update";
     	$job = Job::where('user_id', $user->id)->where('id', $id)->firstOrFail();
-    	return view($this->activeTemplate . 'user.buyer.job.edit', compact('pageTitle', 'job')); 
+    	return view($this->activeTemplate . 'user.buyer.job.edit', compact('pageTitle', 'job'));
     }
 
     public function update(Request $request, $id)

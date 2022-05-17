@@ -14,6 +14,9 @@
                                 <h4 class="card-title mb-0">
                                     {{__($pageTitle)}}
                                 </h4>
+                                <h4 class="card-title mb-0">
+                                    Insurance money: {{auth()->user()->insurance_money}}
+                                </h4>
                             </div>
                             <div class="card-body">
                                 <div class="card-form-wrapper">

@@ -79,6 +79,7 @@ class PaymentController extends Controller
 
         $track = session()->get('Track');
         $data = Deposit::where('trx', $track)->where('status',0)->orderBy('id', 'DESC')->firstOrFail();
+
         $pageTitle = 'Payment Preview';
         return view($this->activeTemplate . 'user.payment.preview', compact('data', 'pageTitle'));
     }
@@ -88,7 +89,7 @@ class PaymentController extends Controller
     {
         $track = session()->get('Track');
         $deposit = Deposit::where('trx', $track)->where('status',0)->orderBy('id', 'DESC')->with('gateway')->firstOrFail();
-        
+
         if ($deposit->method_code >= 1000) {
             $this->userDataUpdate($deposit);
             $notify[] = ['success', 'Your deposit request is queued for approval.'];
@@ -102,7 +103,7 @@ class PaymentController extends Controller
         $data = $new::process($deposit);
         $data = json_decode($data);
 
-
+       // dd($data);
         if (isset($data->error)) {
             $notify[] = ['error', $data->message];
             return redirect()->route(gatewayRedirectUrl())->withNotify($notify);
@@ -204,7 +205,7 @@ class PaymentController extends Controller
                     $adminNotification->save();
 
                     notify($bookedUser, 'SERVICE_BOOKING', [
-                        'order_number' => $booking->order_number, 
+                        'order_number' => $booking->order_number,
                         'amount' => getAmount($booking->amount),
                         'currency' => $general->cur_text,
                     ]);
@@ -241,7 +242,7 @@ class PaymentController extends Controller
                     $adminNotification->save();
 
                     notify($bookedUser, 'SOFTWARE_PURCHASE', [
-                        'order_number' => $booking->order_number, 
+                        'order_number' => $booking->order_number,
                         'amount' => getAmount($booking->amount),
                         'currency' => $general->cur_text,
                     ]);
@@ -263,12 +264,12 @@ class PaymentController extends Controller
                     $bookedUser = User::where('id', $booking->biding->user_id)->first();
 
                     notify($bookedUser, 'HIRE_EMPLOY', [
-                        'order_number' => $booking->order_number, 
+                        'order_number' => $booking->order_number,
                         'amount' => getAmount($booking->amount),
                         'currency' => $general->cur_text,
                     ]);
                 }
-               
+
                 $transaction = new Transaction();
                 $transaction->user_id = $data->user_id;
                 $transaction->amount = $data->amount;

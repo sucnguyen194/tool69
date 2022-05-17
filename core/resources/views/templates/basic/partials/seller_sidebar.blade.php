@@ -15,21 +15,25 @@
                                 <i class="las la-list"></i> <span class="title">@lang('Manage Services')</span>
                             </a>
                         </li>
+                        @if(auth()->user()->pe == 1)
                         <li class="sidebar-single-menu nav-item {{request()->routeIs('user.service.create')?'open':''}}">
                             <a href="{{route('user.service.create')}}">
                                 <i class="las la-plus"></i> <span class="title">@lang('Create Service')</span>
                             </a>
                         </li>
+                        @endif
                         <li class="sidebar-single-menu nav-item {{request()->routeIs('user.software.index') || request()->routeIs('user.software.edit')?'open':''}}">
                             <a href="{{route('user.software.index')}}">
                                 <i class="lab la-microsoft"></i> <span class="title">@lang('Manage Software')</span>
                             </a>
                         </li>
+                        @if(auth()->user()->pe == 1)
                         <li class="sidebar-single-menu nav-item {{request()->routeIs('user.software.create')?'open':''}}">
                             <a href="{{route('user.software.create')}}">
                                 <i class="las la-plus"></i> <span class="title">@lang('Upload Software')</span>
                             </a>
                         </li>
+                        @endif
                     </ul>
                     <h5 class="menu-header-title">@lang('Sales')</h5>
                     <ul id="sidebar-main-menu" class="sidebar-main-menu">
@@ -54,12 +58,13 @@
                                 <i class="las la-money-check-alt"></i> <span class="title">@lang('Transaction Log')</span>
                             </a>
                         </li>
-
+                        @if(auth()->user()->pe == 1)
                         <li class="sidebar-single-menu nav-item {{request()->routeIs('user.withdraw')?'open':''}}">
                             <a href="{{route('user.withdraw')}}">
                                 <i class="las la-money-check-alt"></i> <span class="title">@lang('Withdraw Money')</span>
                             </a>
                         </li>
+                        @endif
                         <li class="sidebar-single-menu nav-item {{request()->routeIs('user.withdraw.history')?'open':''}}">
                             <a href="{{route('user.withdraw.history')}}">
                                 <i class="las la-history"></i> <span class="title">@lang('Withdraw History')</span>

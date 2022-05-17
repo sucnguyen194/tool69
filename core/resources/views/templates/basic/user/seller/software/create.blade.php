@@ -14,6 +14,9 @@
                                 <h4 class="card-title mb-0">
                                     {{__($pageTitle)}}
                                 </h4>
+                                <h4 class="card-title mb-0">
+                                   Insurance money: {{auth()->user()->insurance_money}}
+                                </h4>
                             </div>
                             <div class="card-body">
                                 <div class="card-form-wrapper">
@@ -133,7 +136,7 @@
                                         </div>
 
                                         <div class="col-xl-12 col-lg-12 form-group">
-                                            <label>@lang('Upload Software')</label>
+                                            <label>@lang('Upload Software') <span></span></label>
                                             <div class="custom-file-wrapper">
                                                 <div class="custom-file">
                                                     <input type="file" class="custom-file-input" name="uploadSoftware" id="customFile">

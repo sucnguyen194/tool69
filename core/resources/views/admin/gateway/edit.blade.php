@@ -28,7 +28,7 @@
                                 <div class="content">
                                     <div class="d-flex justify-content-between">
                                         <h3 class="title">{{ __($gateway->name) }}</h3>
-                                        <div class="input-group d-flex flex-wrap justify-content-end has_append width-375">
+                                        <div class="input-group d-flex flex-wrap justify-content-end has_append width-500">
                                             <select class="newCurrencyVal ">
                                                 <option value="">@lang('Select currency')</option>
                                                 @forelse($supportedCurrencies as $currency => $symbol)

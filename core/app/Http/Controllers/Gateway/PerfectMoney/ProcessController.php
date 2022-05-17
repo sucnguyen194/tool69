@@ -64,7 +64,7 @@ class ProcessController extends Controller
         $hash2 = $_POST['V2_HASH'];
 
         if ($hash == $hash2) {
-            
+
             foreach ($_POST as $key => $value) {
                 $details[$key] = $value;
             }

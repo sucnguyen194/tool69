@@ -15,11 +15,13 @@
                                 <i class="las la-list"></i> <span class="title">@lang('Manage Job')</span>
                             </a>
                         </li>
+                        @if(auth()->user()->pe == 1)
                         <li class="sidebar-single-menu nav-item {{request()->routeIs('user.job.create')?'open':''}}">
                             <a href="{{route('user.job.create')}}">
                                 <i class="las la-plus"></i> <span class="title">@lang('Create Job')</span>
                             </a>
                         </li>
+                        @endif
                         <li class="sidebar-single-menu nav-item {{request()->routeIs('user.service.favorite')?'open':''}}">
                             <a href="{{route('user.service.favorite')}}">
                                 <i class="las la-crown"></i> <span class="title">@lang('Favorite Service')</span>
@@ -32,7 +34,7 @@
                         </li>
                     </ul>
 
-                    
+
                     <h5 class="menu-header-title">@lang('PURCHASES')</h5>
                     <ul id="sidebar-main-menu" class="sidebar-main-menu">
 
@@ -52,7 +54,7 @@
                                 <i class="las la-history"></i> <span class="title">@lang('Software Purchases')</span>
                             </a>
                         </li>
-                        
+
                          <li class="sidebar-single-menu nav-item {{request()->routeIs('user.buyer.transactions') ?'open':''}}">
                             <a href="{{route('user.buyer.transactions')}}">
                                 <i class="las la-money-check-alt"></i> <span class="title">@lang('Transaction Log')</span>

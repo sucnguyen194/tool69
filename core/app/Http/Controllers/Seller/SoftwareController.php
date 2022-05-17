@@ -31,6 +31,11 @@ class SoftwareController extends Controller
 
 	public function create()
 	{
+        if(\auth()->user()->pe == 0){
+            $notify[] = ['error', 'Activity denied'];
+            return back()->withNotify($notify);
+        }
+
 		$pageTitle = "Upload Software";
 		$features = Features::latest()->get();
 		return view($this->activeTemplate . 'user.seller.software.create', compact('pageTitle', 'features'));
@@ -40,7 +45,10 @@ class SoftwareController extends Controller
 	public function store(Request $request)
 	{
 
-	 //   dd($request->amount);
+	    if(\auth()->user()->pe == 0){
+            $notify[] = ['error', 'Activity denied'];
+            return back()->withNotify($notify);
+        }
 
 		$request->validate([
             'image' => ['image', new FileTypeValidate(['jpg', 'jpeg', 'png'])],

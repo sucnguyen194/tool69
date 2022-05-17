@@ -39,6 +39,8 @@ Route::namespace('Gateway')->prefix('ipn')->name('ipn.')->group(function () {
     Route::post('coinbase-commerce', 'CoinbaseCommerce\ProcessController@ipn')->name('CoinbaseCommerce');
     Route::get('mollie', 'Mollie\ProcessController@ipn')->name('Mollie');
     Route::post('cashmaal', 'Cashmaal\ProcessController@ipn')->name('Cashmaal');
+
+
 });
 
 // User Support Ticket

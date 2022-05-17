@@ -304,6 +304,14 @@
                                     </select>
                                 </div>
                             </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group ">
+                                    <label class="form-control-label font-weight-bold">@lang('Insurance money') </label>
+                                    <input class="form-control" type="text" name="insurance_money" value="{{@$user->insurance_money}}">
+                                </div>
+                            </div>
+
                         </div>
 
 
@@ -331,18 +339,25 @@
                                        @if($user->sv) checked @endif>
 
                             </div>
-                            <div class="form-group  col-md-6  col-sm-3 col-12">
+                            <div class="form-group  col-md-4  col-sm-3 col-12">
                                 <label class="form-control-label font-weight-bold">@lang('2FA Status') </label>
                                 <input type="checkbox" data-width="100%" data-onstyle="-success" data-offstyle="-danger"
                                        data-toggle="toggle" data-on="@lang('Active')" data-off="@lang('Deactive')" name="ts"
                                        @if($user->ts) checked @endif>
                             </div>
 
-                            <div class="form-group  col-md-6  col-sm-3 col-12">
+                            <div class="form-group  col-md-4  col-sm-3 col-12">
                                 <label class="form-control-label font-weight-bold">@lang('2FA Verification') </label>
                                 <input type="checkbox" data-width="100%" data-onstyle="-success" data-offstyle="-danger"
-                                       data-toggle="toggle" data-on="@lang('Verified')" data-off="@lang('Unverified')" name="tv"
+                                       data-toggle="toggle" data-on="@lang('Verified')" data-off="@lang('Banned')" name="tv"
                                        @if($user->tv) checked @endif>
+                            </div>
+
+                            <div class="form-group  col-md-4  col-sm-3 col-12">
+                                <label class="form-control-label font-weight-bold">@lang('Permission Create Service & Software') </label>
+                                <input type="checkbox" data-width="100%" data-onstyle="-success" data-offstyle="-danger"
+                                       data-toggle="toggle" data-on="@lang('Verified')" data-off="@lang('Unverified')" name="pe"
+                                       @if($user->pe) checked @endif>
                             </div>
                         </div>
 
