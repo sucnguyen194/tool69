@@ -97,12 +97,12 @@
                                             </nav>
                                             <div class="tab-content" id="nav-tabContent">
 
-                        
+
                                                 <div class="tab-pane fade show active" id="des" role="tabpanel" aria-labelledby="des-tab">
                                                     <div class="product-desc-content">
                                                     	@php echo $software->description @endphp
                                                     </div>
-
+                                                    @if($software->tag)
                                                     <div class="item-details-tag">
                                                         <ul class="tags-wrapper">
                                                             <li class="caption">@lang('Tags')</li>
@@ -111,8 +111,9 @@
                                                             @endforeach
                                                         </ul>
                                                     </div>
+                                                     @endif
                                                 </div>
-                                        
+
                                                 <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
                                                     <div class="product-reviews-content">
                                                         <div class="item-review-widget-wrapper">
@@ -345,11 +346,11 @@
                                             </div>
                                         </div>
 
-                                  
+
                                         <div class="widget custom-widget text-center mb-30">
                                             <h3><i class="fas fa-shopping-cart"></i> {{$softwareSales}} @lang('Sales')</h3>
                                         </div>
-                                       
+
 
                                         <div class="widget custom-widget mb-30">
                                             <h3 class="widget-title">@lang('PRODUCT DETAILS')</h3>
@@ -359,16 +360,17 @@
                                                 <li><span>@lang('Last update')</span> <span>{{showDateTime($software->updated_at, 'd M Y')}}</span></li>
                                                 <li><span>@lang('Documentation')</span> <span>@lang('Well Documented')</span></li>
 
+                                                @if($software->file_include)
                                                 <li><span>@lang('Files Included')</span> <span>
                                                     @foreach($software->file_include as $name)
                                                         {{$name}},
                                                     @endforeach
                                                 </span></li>
-                                              
+                                                @endif
                                             </ul>
                                         </div>
 
-                             
+
                                         <div class="widget">
                                             <div class="profile-widget">
                                                 <div class="profile-widget-header">
@@ -403,7 +405,7 @@
                                                         <li><span>@lang('Rating')</span> <span> <span class="ratings"><i class="las la-star text--warning"></i></span> ({{getAmount($reviewRataingAvg, 2)}})</span>
                                                         </li>
                                                         <li><span>@lang('Member Since')</span> <span>{{showDateTime($software->user->created_at, 'd M Y')}}</span></li>
-                                                        <li><span>@lang('Verified User')</span> 
+                                                        <li><span>@lang('Verified User')</span>
                                                         	@if($software->user->status == 1)
                                                         		<span class="text--success">@lang('Yes')</span>
                                                         	@else
