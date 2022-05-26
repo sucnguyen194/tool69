@@ -17,6 +17,9 @@ Route::get('job/hire/cron', 'CronController@job')->name('job.cron');
 
 
 Route::namespace('Gateway')->prefix('ipn')->name('ipn.')->group(function () {
+
+    Route::get('ngan-luong', 'NganLuong\ProcessController@ipn')->name('NganLuong');
+
     Route::post('paypal', 'Paypal\ProcessController@ipn')->name('Paypal');
     Route::get('paypal-sdk', 'PaypalSdk\ProcessController@ipn')->name('PaypalSdk');
     Route::post('perfect-money', 'PerfectMoney\ProcessController@ipn')->name('PerfectMoney');

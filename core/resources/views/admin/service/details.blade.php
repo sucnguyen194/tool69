@@ -218,6 +218,17 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row mb-30">
+                <div class="col-lg-12">
+                    <div class="card border--dark">
+                        <h5 class="card-header bg--dark">@lang('Description hide')</h5>
+                        <div class="card-body">
+                            @php echo $service->content @endphp
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
