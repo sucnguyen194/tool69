@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Gateway\NganLuong;
 
-include 'lib/nganluong.class.php';
-
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Gateway\PaymentController;
 use App\Models\Deposit;
@@ -22,11 +20,13 @@ class ProcessController extends Controller {
 
         $account = json_decode($gateway_currency->gateway_parameter);
 
+        $deposit->gateway->alias;
+
         //Mã đơn hàng
         $order_code='NL_'.time();
-        $return_url=  route(gatewayRedirectUrl(true));
+        $return_url=  route('ipn.'.$deposit->gateway->alias);
         $cancel_url= $_SERVER['HTTP_REFERER'];
-        $notify_url = route(gatewayRedirectUrl(true));
+        $notify_url = route('ipn.'.$deposit->gateway->alias);
         $txh_name = $user->last_name.' '.$user->first_name;
         $txt_email = $user->email;
         $txt_phone = $user->phone;
