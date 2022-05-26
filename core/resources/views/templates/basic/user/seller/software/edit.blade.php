@@ -123,144 +123,99 @@
                                                 @endforeach
                                             </div>
                                             <div class="col-xl-6 col-lg-6 form-group">
-                                                <div class="card custom--card p-0 mb-3">
-                                                    <div
-                                                        class="card-header d-flex flex-wrap align-items-center justify-content-between">
-                                                        <h4 class="card-title mb-0">
-                                                            @lang('Price')
-                                                        </h4>
-                                                        <div class="card-btn">
-                                                            <button type="button" class="btn--base addExtraAmount"><i
-                                                                    class="las la-plus"></i> @lang('Add New')</button>
+                                                <label>@lang('Price')*</label>
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control" name="amount"
+                                                           value="{{getAmount($software->amount)}}"
+                                                           placeholder="@lang('Enter Price')" required="">
+                                                    <span class="input-group-text"
+                                                          id="basic-addon2">{{__($general->cur_text)}}</span>
+
+                                                </div>
+                                            </div>
+                                                <div class="col-xl-6 col-lg-6 form-group select2Tag">
+                                                    <label>@lang('Tag')</label>
+                                                    <select class="form-control select2" name="tag[]"
+                                                            multiple="multiple">
+                                                        @if($software->tag)
+                                                            @foreach($software->tag as $name)
+                                                                <option value="{{$name}}"
+                                                                        selected="true">{{__($name)}}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+                                                    <small>@lang('Tag and enter press')</small>
+                                                </div>
+
+                                                <div class="col-xl-6 col-lg-6 form-group select2Tag">
+                                                    <label>@lang('File Include')</label>
+                                                    <select class="form-control select2" name="file_include[]"
+                                                            multiple="multiple">
+                                                        @if($software->file_include)
+                                                            @foreach($software->file_include as $name)
+                                                                <option value="{{$name}}"
+                                                                        selected="true">{{__($name)}}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+                                                    <small>@lang('File and enter press')</small>
+                                                </div>
+
+
+                                                <div class="col-xl-6 col-lg-6 form-group">
+                                                    <label>@lang('Demo Url')</label>
+                                                    <input type="text" name="url" maxlength="255"
+                                                           value="{{$software->demo_url}}" class="form-control">
+                                                    <small>@lang('https://example.com/')</small>
+                                                </div>
+
+                                                <div class="col-xl-6 col-lg-6 form-group">
+                                                    <label>@lang('Documentation File')</label>
+                                                    <div class="custom-file-wrapper">
+                                                        <div class="custom-file">
+                                                            <input type="file" class="custom-file-input" name="document"
+                                                                   id="customFile">
+                                                            <label class="custom-file-label"
+                                                                   for="customFile">@lang('Choose file')</label>
                                                         </div>
-                                                    </div>
-                                                    <div class="card-body addAmount">
-                                                        @if($software->amount)
-
-                                                            @foreach($software->amount as $key => $amount)
-                                                                @if($key == 0)
-                                                                    <div class="input-group mb-3">
-                                                                        <input type="text" class="form-control"
-                                                                               name="amount[]" value="{{$amount}}"
-                                                                               placeholder="@lang('Enter Price')"
-                                                                               required="">
-                                                                        <span class="input-group-text"
-                                                                              id="basic-addon2">{{__($general->cur_text)}}</span>
-                                                                    </div>
-
-                                                                @else
-
-                                                                    <div class="custom-file-wrapper removeAmount">
-                                                                        <div class="input-group mb-3">
-                                                                            <input type="text" class="form-control" value="{{$amount}}" name="amount[]" placeholder="@lang('Enter Price')">
-                                                                            {{--<span class="input-group-text" id="basic-addon2">{{__($general->cur_text)}}</span>--}}
-                                                                            <button class="btn btn--danger text-white border--rounded removeExtraAmount offset-1"><i class="fa fa-times"></i></button>
-                                                                        </div>
-
-                                                                    </div>
-
-                                                                @endif
-
-                                                                @endforeach
-
-                                                                @else
-
-                                                                    <div class="input-group mb-3">
-                                                                        <input type="text" class="form-control"
-                                                                               name="amount[]" value="{{old('amount')}}"
-                                                                               placeholder="@lang('Enter Price')"
-                                                                               required="">
-                                                                        <span class="input-group-text"
-                                                                              id="basic-addon2">{{__($general->cur_text)}}</span>
-                                                                    </div>
-                                                                @endif
+                                                        <small>@lang('Supported file: only pdf file')</small>
                                                     </div>
                                                 </div>
-                                            </div>
 
-
-                                            <div class="col-xl-6 col-lg-6 form-group select2Tag">
-                                                <label>@lang('Tag')</label>
-                                                <select class="form-control select2" name="tag[]" multiple="multiple">
-                                                    @if($software->tag)
-                                                        @foreach($software->tag as $name)
-                                                            <option value="{{$name}}"
-                                                                    selected="true">{{__($name)}}</option>
-                                                        @endforeach
-                                                    @endif
-                                                </select>
-                                                <small>@lang('Tag and enter press')</small>
-                                            </div>
-
-                                            <div class="col-xl-6 col-lg-6 form-group select2Tag">
-                                                <label>@lang('File Include')</label>
-                                                <select class="form-control select2" name="file_include[]"
-                                                        multiple="multiple">
-                                                    @if($software->file_include)
-                                                        @foreach($software->file_include as $name)
-                                                            <option value="{{$name}}"
-                                                                    selected="true">{{__($name)}}</option>
-                                                        @endforeach
-                                                    @endif
-                                                </select>
-                                                <small>@lang('File and enter press')</small>
-                                            </div>
-
-
-                                            <div class="col-xl-6 col-lg-6 form-group">
-                                                <label>@lang('Demo Url')</label>
-                                                <input type="text" name="url" maxlength="255"
-                                                       value="{{$software->demo_url}}" class="form-control">
-                                                <small>@lang('https://example.com/')</small>
-                                            </div>
-
-                                            <div class="col-xl-6 col-lg-6 form-group">
-                                                <label>@lang('Documentation File')</label>
-                                                <div class="custom-file-wrapper">
-                                                    <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" name="document"
-                                                               id="customFile">
-                                                        <label class="custom-file-label"
-                                                               for="customFile">@lang('Choose file')</label>
+                                                <div class="col-xl-12 col-lg-12 form-group">
+                                                    <label>@lang('Upload Software')</label>
+                                                    <div class="custom-file-wrapper">
+                                                        <div class="custom-file">
+                                                            <input type="file" class="custom-file-input"
+                                                                   name="uploadSoftware" id="customFile">
+                                                            <label class="custom-file-label"
+                                                                   for="customFile">@lang('Choose file')</label>
+                                                        </div>
+                                                        <small>@lang('Supported file: only zip file')</small>
                                                     </div>
-                                                    <small>@lang('Supported file: only pdf file')</small>
                                                 </div>
-                                            </div>
 
-                                            <div class="col-xl-12 col-lg-12 form-group">
-                                                <label>@lang('Upload Software')</label>
-                                                <div class="custom-file-wrapper">
-                                                    <div class="custom-file">
-                                                        <input type="file" class="custom-file-input"
-                                                               name="uploadSoftware" id="customFile">
-                                                        <label class="custom-file-label"
-                                                               for="customFile">@lang('Choose file')</label>
-                                                    </div>
-                                                    <small>@lang('Supported file: only zip file')</small>
+                                                <div class="col-xl-12 col-lg-12 form-group">
+                                                    <label>@lang('Description')*</label>
+                                                    <textarea class="form-control bg--gray nicEdit"
+                                                              name="description">{{__($software->description)}}</textarea>
                                                 </div>
-                                            </div>
-
-                                            <div class="col-xl-12 col-lg-12 form-group">
-                                                <label>@lang('Description')*</label>
-                                                <textarea class="form-control bg--gray nicEdit"
-                                                          name="description">{{__($software->description)}}</textarea>
-                                            </div>
 
 
-                                            <div class="col-xl-12 col-lg-12 form-group">
-                                                <label>@lang('Description Hide')*</label>
-                                                <textarea class="form-control bg--gray nicEdit"
-                                                          name="description_hide">{{__($software->description_hide)}}</textarea>
-                                            </div>
+                                                <div class="col-xl-12 col-lg-12 form-group">
+                                                    <label>@lang('Description Hide')*</label>
+                                                    <textarea class="form-control bg--gray nicEdit"
+                                                              name="description_hide">{{__($software->description_hide)}}</textarea>
+                                                </div>
 
-                                            <div class="col-xl-12 form-group">
-                                                <button type="submit"
-                                                        class="submit-btn mt-20 w-100">@lang("Update Software")</button>
+                                                <div class="col-xl-12 form-group">
+                                                    <button type="submit"
+                                                            class="submit-btn mt-20 w-100">@lang("Update Software")</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                         </form>
                     </div>
                 </div>

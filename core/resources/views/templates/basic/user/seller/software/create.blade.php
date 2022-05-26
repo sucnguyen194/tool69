@@ -85,22 +85,10 @@
                                         </div>
 
                                         <div class="col-xl-6 col-lg-6 form-group">
-                                            <div class="card custom--card p-0 mb-3">
-                                                <div class="card-header d-flex flex-wrap align-items-center justify-content-between">
-                                                    <h4 class="card-title mb-0">
-                                                        @lang('Price')
-                                                    </h4>
-                                                    <div class="card-btn">
-                                                        <button type="button" class="btn--base addExtraAmount"><i class="las la-plus"></i> @lang('Add New')</button>
-                                                    </div>
-                                                </div>
-                                                <div class="card-body addAmount">
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name="amount[]" value="{{old('amount')}}" placeholder="@lang('Enter Price')" required="">
-                                                        <span class="input-group-text" id="basic-addon2">{{__($general->cur_text)}}</span>
-                                                    </div>
-
-                                                </div>
+                                           <label>@lang('Price')*</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" name="amount" value="{{old('amount')}}" placeholder="@lang('Enter Price')" required="">
+                                              <span class="input-group-text" id="basic-addon2">{{__($general->cur_text)}}</span>
                                             </div>
                                         </div>
 

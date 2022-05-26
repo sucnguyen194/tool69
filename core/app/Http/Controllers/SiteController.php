@@ -45,7 +45,7 @@ class SiteController extends Controller
         $services = Service::where('status', 1)->where('featured', 1)->whereHas('category', function ($q) {
             $q->where('status', 1);
         })->limit(20)->inRandomOrder()->with('user', 'user.rank')->get();
-        
+
         return view($this->activeTemplate . 'home', compact('pageTitle', 'services', 'emptyMessage'));
     }
 
@@ -97,9 +97,11 @@ class SiteController extends Controller
             $q->where('user_id', $service->user_id);
         })->avg('rating');
 
+        $checkBookingService = Booking::whereStatus(1)->whereUserId($activeUser->id)->whereServiceId($service->id)->count();
+
         $comments = Comment::where('service_id', $service->id)->with('user', 'commentReply')->paginate(7);
         $reviews = ReviewRating::where('service_id', $service->id)->with('user', 'service')->paginate(7);
-        return view($this->activeTemplate . 'service_deatils', compact('pageTitle', 'service', 'otherServices', 'totalService', 'conversion', 'comments', 'reviews', 'serviceGetRating', 'reviewRataingAvg', 'workInprogress'));
+        return view($this->activeTemplate . 'service_deatils', compact('pageTitle', 'service', 'otherServices', 'totalService', 'conversion', 'comments', 'reviews', 'serviceGetRating', 'reviewRataingAvg', 'workInprogress','checkBookingService'));
     }
 
     public function software()
@@ -146,9 +148,11 @@ class SiteController extends Controller
             $q->where('user_id', $software->user_id);
         })->avg('rating');
 
+        $checkBookingSoftware = Booking::whereStatus(1)->whereUserId($activeUser->id)->whereSoftwareId($software->id)->count();
+
         $comments = Comment::where('software_id', $software->id)->with('user', 'commentReply')->paginate(7);
         $reviews = ReviewRating::where('software_id', $software->id)->with('user')->paginate(7);
-        return view($this->activeTemplate . 'software_details', compact('pageTitle', 'software', 'otherServices', 'totalService', 'comments', 'reviews', 'softwareGetRating', 'softwareSales', 'reviewRataingAvg', 'workInprogress'));
+        return view($this->activeTemplate . 'software_details', compact('pageTitle', 'software', 'otherServices', 'totalService', 'comments', 'reviews', 'softwareGetRating', 'softwareSales', 'reviewRataingAvg', 'workInprogress','checkBookingSoftware'));
     }
 
     public function job()

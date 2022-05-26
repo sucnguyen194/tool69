@@ -176,6 +176,10 @@
                                             <label>@lang('Description')*</label>
                                             <textarea class="form-control bg--gray nicEdit" name="description">@php echo $service->description @endphp</textarea>
                                         </div>
+                                         <div class="col-xl-12 col-lg-12 form-group">
+                                            <label>@lang('Description Hide')*</label>
+                                            <textarea class="form-control bg--gray nicEdit" name="content">@php echo $service->content @endphp</textarea>
+                                        </div>
                                         <div class="col-xl-12 form-group">
                                             <button type="submit" class="submit-btn mt-20 w-100">@lang("Update Service")</button>
                                         </div>

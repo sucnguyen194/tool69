@@ -74,6 +74,7 @@ class ServiceController extends Controller
         $service->delivery_time = $request->delivery;
         $service->tag = $request->tag;
         $service->description = $request->description;
+        $service->content = $request->input('content');
         $path = imagePath()['service']['path'];
         $size = imagePath()['service']['size'];
         if ($request->hasFile('image')) {
@@ -153,6 +154,7 @@ class ServiceController extends Controller
         $service->delivery_time = $request->delivery;
         $service->tag = $request->tag;
         $service->description = $request->description;
+        $service->content = $request->input('content');
         $path = imagePath()['service']['path'];
         $size = imagePath()['service']['size'];
         if ($request->hasFile('image')) {

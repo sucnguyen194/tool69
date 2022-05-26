@@ -234,7 +234,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="right">
-                                                                        <div class="item-amount">{{$general->cur_sym}}{{showAmount($software->amount[0])}}</div>
+                                                                        <div class="item-amount">{{$general->cur_sym}}{{showAmount($software->amount)}}</div>
                                                                     </div>
                                                                 </div>
                                                                 <h3 class="item-card-title"><a href="{{route('software.details', [slug($software->title), encrypt($software->id)])}}">{{__($software->title)}}</a></h3>

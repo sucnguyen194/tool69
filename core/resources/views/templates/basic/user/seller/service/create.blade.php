@@ -127,6 +127,10 @@
                                             <label>@lang('Description')*</label>
                                             <textarea class="form-control bg--gray nicEdit" name="description">{{old('description')}}</textarea>
                                         </div>
+                                         <div class="col-xl-12 col-lg-12 form-group">
+                                            <label>@lang('Description Hide')*</label>
+                                            <textarea class="form-control bg--gray nicEdit" name="content">{{old('content')}}</textarea>
+                                        </div>
                                         <div class="col-xl-12 form-group">
                                             <button type="submit" class="submit-btn mt-20 w-100">@lang('CREATE SERVICE')</button>
                                         </div>

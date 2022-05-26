@@ -35,13 +35,7 @@
                                                             <div class="content">{{__(str_limit($software->title, 10))}}</div>
                                                         </div>
                                                     </td>
-                                                    <td data-label="@lang('Amount')">
-                                                        @if($software->amount)
-                                                            @foreach($software->amount as $amount)
-                                                           <simple class="clearfix">{{$general->cur_sym}} {{showAmount($amount)}}</simple>
-                                                            @endforeach
-                                                        @endif
-                                                    </td>
+                                                       <td data-label="@lang('Amount')">{{$general->cur_sym}}{{showAmount($software->amount)}}</td>
                                                     <td data-label="@lang('Software File')">
                                                         <a href="{{route('user.software.file.download',encrypt($software->id))}}" class="btn btn--sm btn--info text-white"><i class="las la-arrow-down"></i></a>
                                                     </td>

@@ -81,7 +81,7 @@
                                       <span>{{__($service->subCategory->name)}}</span>
                                     </li>
                                 @endif
-                              
+
                                 <li class="list-group-item d-flex justify-content-between align-items-center font-weight-bold">
                                   @lang('Service Price')
                                   <span>{{getAmount($service->price)}} {{$general->cur_text}}</span>
@@ -116,7 +116,7 @@
                                         <span class="font-weight-normal badge--primary badge--sm">@lang('Pending')</span>
                                     @endif
                                 </li>
-                              
+
                                 <li class="list-group-item d-flex justify-content-between align-items-center font-weight-bold">
                                   @lang('Featured Item')
                                     @if($service->featured == 0)
@@ -155,11 +155,12 @@
                             <ul>
                                 @foreach($service->featuresService as $features)
                                     <li class="font-weight-bold">{{$loop->iteration}}. {{__($features->name)}}</li>
-                                @endforeach 
+                                @endforeach
                             </ul>
                         </div>
                     </div>
                 </div>
+                @if($service->tag)
                 <div class="col-lg-6 mt-2">
                     <div class="card border--dark">
                         <h5 class="card-header bg--dark">@lang('Tag')</h5>
@@ -167,11 +168,12 @@
                             <ul>
                                 @foreach($service->tag as $value)
                                     <li class="font-weight-bold">{{$loop->iteration}}. {{__($value)}}</li>
-                                @endforeach 
+                                @endforeach
                             </ul>
                         </div>
                     </div>
                 </div>
+                 @endif
             </div>
 
             @if($service->extraService->count() != 0)

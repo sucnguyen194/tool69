@@ -60,7 +60,7 @@ class SoftwareController extends Controller
             'demo_url' => 'nullable',
 //            'tag' => 'required|array|min:3|max:15',
 //            'file_include' => 'required|array|min:3|max:15',
-            'amount' => 'required',
+            'amount' => 'required|numeric|gt:0',
 //            'url' => 'required|url',
 //            'description' => 'required',
 //            'document' => ['required', new FileTypeValidate(['pdf'])],
@@ -76,6 +76,7 @@ class SoftwareController extends Controller
         $software->demo_url = $request->url;
         $software->tag = $request->tag;
         $software->file_include = $request->file_include;
+        $software->amount = $request->amount;
         $software->description = $request->description;
         $software->description_hide = $request->description_hide;
         $path = imagePath()['software']['path'];
@@ -118,14 +119,14 @@ class SoftwareController extends Controller
         	$software->status = 1;
         }
 
-        if($request->amount){
-            $amounts = [];
-            foreach ($request->amount as $amount):
-                $amounts[] = $amount;
-            endforeach;
-
-            $software->amount = $amounts;
-        }
+//        if($request->amount){
+//            $amounts = [];
+//            foreach ($request->amount as $amount):
+//                $amounts[] = $amount;
+//            endforeach;
+//
+//            $software->amount = $amounts;
+//        }
 
         $software->updated_at = Carbon::now();
         $software->save();
@@ -165,8 +166,8 @@ class SoftwareController extends Controller
             'features' => 'required|array|exists:features,id',
 //            'tag' => 'required|array|min:3|max:15',
 //            'file_include' => 'required|array|min:3|max:15',
-//            'amount' => 'required|numeric|gt:0',
-            'amount' => 'required',
+            'amount' => 'required|numeric|gt:0',
+//            'amount' => 'required',
             'demo_url' => 'nullable',
 //            'url' => 'required|url',
 //            'description' => 'required',
@@ -228,14 +229,14 @@ class SoftwareController extends Controller
         }
         $software->updated_at = Carbon::now();
 
-        if($request->amount){
-            $amounts = [];
-            foreach ($request->amount as $amount):
-                $amounts[] = $amount;
-            endforeach;
-
-            $software->amount = $amounts;
-        }
+//        if($request->amount){
+//            $amounts = [];
+//            foreach ($request->amount as $amount):
+//                $amounts[] = $amount;
+//            endforeach;
+//
+//            $software->amount = $amounts;
+//        }
 
         $software->save();
         $software->featuresSoftware()->sync($request->features);
