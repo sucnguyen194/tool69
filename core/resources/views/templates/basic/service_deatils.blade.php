@@ -20,7 +20,7 @@
                                                                     <img src="{{getImage('assets/images/service/'.$service->image, imagePath()['service']['size']) }}" alt="@lang('item-banner')">
                                                                 </div>
                                                             </div>
-                                                            @foreach($service->optionalImage as $value)
+                                                            @foreach(@$service->optionalImage as $value)
                                                                 <div class="swiper-slide">
                                                                     <div class="item-details-thumb">
                                                                         <img src="{{getImage('assets/images/optionalService/'.$value->image, imagePath()['optionalService']['size']) }}" alt="@lang('item-banner')">
@@ -54,7 +54,7 @@
 
                                                             <a href="javascript:void(0)" class="item-love me-2 loveHeartAction" data-serviceid="{{$service->id}}"><i class="fas fa-heart"></i> <span
                                                                     class="give-love-amount">({{__($service->favorite)}})</span></a>
-                                                           
+
                                                             <a href="javascript:void(0)" class="item-ratings">
                                                                 @if(intval($service->rating) == 1)
                                                                     <i class="las la-star text--warning"></i>
@@ -115,7 +115,7 @@
                                                     <div class="product-desc-content">
                                                     	@php echo $service->description @endphp
                                                     </div>
-
+                                                    @if($service->tag)
                                                     <div class="item-details-tag">
                                                         <ul class="tags-wrapper">
                                                             <li class="caption">@lang('Tags')</li>
@@ -124,6 +124,7 @@
                                                             @endforeach
                                                         </ul>
                                                     </div>
+                                                    @endif
                                                 </div>
 
                                                 <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
@@ -201,7 +202,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    
+
                                                                     <textarea class="form-control h-auto" placeholder="@lang('Write Review')" name="review" rows="8" required=""></textarea>
                                                                     <button type="submit" class="submit-btn mt-20">@lang('Post Your Review')</button>
                                                                 </form>
@@ -262,7 +263,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                
+
 
                                                 <div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="comment-tab">
                                                     <div class="product-reviews-content product-comment-content">
@@ -385,7 +386,7 @@
                                             </div>
                                         </div>
 
-                             
+
                                         <div class="widget custom-widget text-center mb-30">
                                             <h3 class="widget-title">@lang('Do you have any special requirements')?</h3>
                                             <div class="widget-btn mt-20">
@@ -437,7 +438,7 @@
                                                         <li><span>@lang('Rating')</span> <span> <span class="ratings"><i class="las la-star text--warning"></i></span> ({{getAmount($reviewRataingAvg, 2)}})</span>
                                                         </li>
                                                         <li><span>@lang('Member Since')</span> <span>{{showDateTime($service->user->created_at, 'd M Y')}}</span></li>
-                                                        <li><span>@lang('Verified User')</span> 
+                                                        <li><span>@lang('Verified User')</span>
                                                         	@if($service->user->status == 1)
                                                         		<span class="text--success">@lang('Yes')</span>
                                                         	@else
@@ -539,7 +540,7 @@
 		                    <label for="subject" class="font-weight-bold">@lang('Subject')</label>
 		                    <input type="text" class="form-control" name="subject" placeholder="@lang('Enter Subject')" maxlength="255" required>
 		                </div>
-                         
+
 	                    <div class="form-group">
 	                        <label for="message" class="font-weight-bold">@lang('Message')</label>
 	                        <textarea rows="8" class="form-control" name="message" maxlength="500" placeholder="@lang('Enter Message')" required></textarea>

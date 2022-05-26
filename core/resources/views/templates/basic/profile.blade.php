@@ -66,7 +66,7 @@
                                                         <li><span>@lang('Total Job')</span> <span>{{$user->jobs->count()}}</span></li>
                                                         <li><span>@lang('Country')</span> <span>{{@$user->address->country}}</span></li>
                                                         <li><span>@lang('Member since')</span> <span>{{showDateTime($user->created_at, 'd M Y')}}</span></li>
-                                                        <li><span>@lang('Verified User')</span> 
+                                                        <li><span>@lang('Verified User')</span>
                                                             @if($user->status == 1)
                                                                 <span class="text--success">@lang('Yes')</span>
                                                             @else
@@ -193,7 +193,7 @@
                                                                 <div class="left">
 
                                                                     <a href="javascript:void(0)" class="item-love me-2 loveHeartAction"  data-serviceid="{{$service->id}}"><i class="fas fa-heart"></i> <span class="give-love-amount">({{__($service->favorite)}})</span></a>
-                                                                    
+
                                                                     <a href="javascript:void(0)" class="item-like"><i class="las la-thumbs-up"></i> ({{$service->likes}})</a>
                                                                 </div>
                                                                 <div class="right">
@@ -234,7 +234,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="right">
-                                                                        <div class="item-amount">{{$general->cur_sym}}{{showAmount($software->amount)}}</div>
+                                                                        <div class="item-amount">{{$general->cur_sym}}{{showAmount($software->amount[0])}}</div>
                                                                     </div>
                                                                 </div>
                                                                 <h3 class="item-card-title"><a href="{{route('software.details', [slug($software->title), encrypt($software->id)])}}">{{__($software->title)}}</a></h3>
@@ -398,7 +398,7 @@
                             <label for="subject" class="font-weight-bold">@lang('Subject')</label>
                             <input type="text" class="form-control" name="subject" placeholder="@lang('Enter Subject')" maxlength="255" required>
                         </div>
-                         
+
                         <div class="form-group">
                             <label for="message" class="font-weight-bold">@lang('Message')</label>
                             <textarea rows="8" class="form-control" name="message" maxlength="500" placeholder="@lang('Enter Message')" required></textarea>
