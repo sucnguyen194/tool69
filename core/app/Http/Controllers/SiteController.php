@@ -77,8 +77,10 @@ class SiteController extends Controller
         $activeUser = Auth::user();
         $conversion = null;
         $serviceGetRating = null;
+        $checkBookingService = null;
         $serviceUser = User::where('id', $service->user_id)->firstOrFail();
         if ($activeUser) {
+             $checkBookingService = Booking::whereStatus(1)->whereUserId($activeUser->id)->whereServiceId($service->id)->count();
             $serviceGetRating = Booking::where('user_id', $activeUser->id)->where('working_status', 1)->where('service_id', $service->id)->first();
             $conversion = Conversation::where(function ($query) use ($activeUser, $serviceUser) {
                 $query->orWhere('sender_id', $activeUser->id)
@@ -97,7 +99,7 @@ class SiteController extends Controller
             $q->where('user_id', $service->user_id);
         })->avg('rating');
 
-        $checkBookingService = Booking::whereStatus(1)->whereUserId($activeUser->id)->whereServiceId($service->id)->count();
+
 
         $comments = Comment::where('service_id', $service->id)->with('user', 'commentReply')->paginate(7);
         $reviews = ReviewRating::where('service_id', $service->id)->with('user', 'service')->paginate(7);
@@ -132,9 +134,11 @@ class SiteController extends Controller
 
         $activeUser = Auth::user();
         $softwareGetRating = null;
+        $checkBookingSoftware = null;
         $softwareUser = User::where('id', $software->user_id)->firstOrFail();
         if ($activeUser) {
             $softwareGetRating = Booking::where('user_id', $activeUser->id)->where('status', 3)->where('working_status', 1)->where('software_id', $software->id)->first();
+            $checkBookingSoftware = Booking::whereStatus(1)->whereUserId($activeUser->id)->whereSoftwareId($software->id)->count();
         }
 
         $workInprogress = Booking::where('status', '!=', 0)->where('working_status', 4)->whereHas('service', function ($q) use ($software) {
