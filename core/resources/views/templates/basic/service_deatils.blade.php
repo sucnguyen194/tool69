@@ -145,7 +145,7 @@
                                                         <div class="product-desc-content">
                                                             @php echo $service->description @endphp
                                                         </div>
-                                                   
+
                                                         @if($service->tag)
                                                             <div class="item-details-tag">
                                                                 <ul class="tags-wrapper">

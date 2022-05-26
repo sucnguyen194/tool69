@@ -46,7 +46,7 @@ class ProcessController extends Controller {
 
         $nl= new NL_Checkout();
         $nl->nganluong_url = 'https://www.nganluong.vn/checkout.php';
-        $nl->merchant_site_code = 36680;
+        $nl->merchant_site_code =  $account->merchant_code;
         $nl->secure_pass =  $account->merchant_pass;
 
         //Tạo link thanh toán đến nganluong.vn
@@ -90,7 +90,7 @@ class ProcessController extends Controller {
 
             //Khai báo đối tượng của lớp NL_Checkout
             $nl= new NL_Checkout();
-            $nl->merchant_site_code = 36680;
+            $nl->merchant_site_code = $account->merchant_code;
             $nl->secure_pass = $account->merchant_pass;
 
             //Tạo link thanh toán đến nganluong.vn
